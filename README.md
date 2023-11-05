@@ -1,15 +1,14 @@
-![thumbnail-Formação Java (4)](https://user-images.githubusercontent.com/66698429/226751112-f79aaa28-16c9-4561-8a15-0ac62ec9cb44.png)
+![thumbnail-Formação Java (4)](./public/Blog-Capa.png)
 
 
-# Java: consumindo uma API, gravando arquivos e lidando com erros
+# Java: Consuming API in Java
 
-Projeto desenvolvido no quarto curso da formação Java da Alura
+Project developed in the fourth course of Alura's Java training
 
 
-## 🔨 Objetivos do projeto
+## 🔨 Project Objectives
 
-- Aprender a consumir uma API HTTP em Java;
-- Entender como receber e converter dados no formato JSON; 
-- Utilizar a biblioteca externa GSON para fazer serialização e desserialização de dados;
-- Lidar com erros e tratar exceções;
-- Conhecer o pacote java.io para manipulação de arquivos.
+- Learn how to consume an HTTP API
+- Data manipulation in JSON format; 
+- Use the external GSON library to serialize and deserializa data;
+- Error handling;
