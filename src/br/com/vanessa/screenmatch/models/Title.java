@@ -1,7 +1,11 @@
 package br.com.vanessa.screenmatch.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Title implements Comparable<Title>{
+    @SerializedName("Title")
     private String name;
+    @SerializedName("Year")
     private int yearRelease;
     private boolean addInPlan;
     private int totRating;
@@ -13,6 +17,11 @@ public class Title implements Comparable<Title>{
     public Title(String name, int yearRelease) {
         this.name = name;
         this.yearRelease = yearRelease;
+    }
+
+    public Title(TitleOmdb titleOmbd) {
+        this.name = titleOmbd.title();
+        this.yearRelease = Integer.parseInt(titleOmbd.year());
     }
 
     public String getName() {
@@ -71,5 +80,13 @@ public class Title implements Comparable<Title>{
 
     public int compareTo(Title otherTitle){
         return this.getName().compareTo(otherTitle.getName());
+    }
+
+    @Override
+    public String toString() {
+        return "Title{" +
+                "name='" + name + '\'' +
+                ", yearRelease=" + yearRelease +
+                '}';
     }
 }
