@@ -1,5 +1,6 @@
 package br.com.vanessa.screenmatch.models;
 
+import br.com.vanessa.screenmatch.exception.ExceededLength;
 import com.google.gson.annotations.SerializedName;
 
 public class Title implements Comparable<Title>{
@@ -21,6 +22,10 @@ public class Title implements Comparable<Title>{
 
     public Title(TitleOmdb titleOmbd) {
         this.name = titleOmbd.title();
+        if(titleOmbd.year().length() > 4){
+            System.out.println("Numero maior que 4");
+            throw new ExceededLength("Número de caracteres excedido para representar o ano");
+        }
         this.yearRelease = Integer.parseInt(titleOmbd.year());
     }
 
