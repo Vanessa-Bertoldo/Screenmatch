@@ -1,9 +1,14 @@
 package br.com.vanessa.screenmatch.connection;
 
+import br.com.vanessa.screenmatch.models.Title;
+import br.com.vanessa.screenmatch.models.TitleOmdb;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -27,7 +32,9 @@ public class Conn {
             //translate to json
             Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).create(); //naming standard
             String json = response.body();
-            return gson.toJson(json);
+            TitleOmdb myTitleOmdb = gson.fromJson(json, TitleOmdb.class);
+            Title myTitle = new Title(myTitleOmdb);
+            return gson.toJson(myTitle);
         } catch (ConnectException e){
             System.out.println("Erro de conexão " + e.getMessage());
         }catch(Exception e){
@@ -38,9 +45,17 @@ public class Conn {
 
     public void writeDataToFile(String filme){
         System.out.println("filme array " + filme);
-        Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).create(); //naming standard
-        //FileWriter write = new FileWriter("filmes.json");
-        /*write.write(gson.toJson(titulos));
-        write.close();*/
+        try{
+            Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).create(); //naming standard
+            FileWriter write = new FileWriter("listaFilmes.json");
+            write.write(gson.toJson(write));
+            write.close();
+            System.out.println("Arquivo gerado com sucesso");
+        } catch (IOException e){
+            System.out.println("Erro ao gerar arquivo " + e.getMessage());
+        }  catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
     }
 }

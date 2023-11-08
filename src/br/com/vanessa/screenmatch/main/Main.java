@@ -13,11 +13,14 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
         Scanner sc = new Scanner(System.in);
+        Conn conn = new Conn();
 
         /*try{
             Scanner sc = new Scanner(System.in);
@@ -57,9 +60,27 @@ public class Main {
             System.out.println("2 - Gravar filmes em um arquivo");
             System.out.println("0 - Sair");
             resp = sc.nextInt();
-        } while (resp != 0);
+            if(resp == 1){
+                System.out.println("Digite o nome do filme que deseja procurar: ");
+                String title = sc.next();
 
-        Conn conn = new Conn();
+                System.out.println(conn.searchTitle(title));
+            } else if(resp == 2){
+                System.out.println("Digite o nome do titulo que deseja guardar: ");
+                String title = sc.next();
+                conn.searchTitle(title);
+                int resp_write;
+                do{
+                    System.out.println("1 - Adicionar mais um filme");
+                    System.out.println("2 - Salvar arquivo e sair");
+                    resp_write = sc.nextInt();
+                } while (resp_write != 0);
+
+                List<Title> titles = new ArrayList<>();
+            } else {
+                System.out.println("Opção inválida");
+            }
+        } while (resp != 0);
         String test = conn.searchTitle("matrix");
         System.out.println("teste " + test);
         conn.writeDataToFile(test);
