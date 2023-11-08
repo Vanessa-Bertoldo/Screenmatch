@@ -1,5 +1,6 @@
 package br.com.vanessa.screenmatch.connection;
 
+import br.com.vanessa.screenmatch.exception.ExceededLength;
 import br.com.vanessa.screenmatch.models.Title;
 import br.com.vanessa.screenmatch.models.TitleOmdb;
 import com.google.gson.FieldNamingPolicy;
@@ -37,7 +38,7 @@ public class Conn {
             return gson.toJson(myTitle);
         } catch (ConnectException e){
             System.out.println("Erro de conexão " + e.getMessage());
-        }catch(Exception e){
+        } catch(Exception e){
             System.out.println(e.getMessage());
         }
         return null;
@@ -53,7 +54,9 @@ public class Conn {
             System.out.println("Arquivo gerado com sucesso");
         } catch (IOException e){
             System.out.println("Erro ao gerar arquivo " + e.getMessage());
-        }  catch (Exception e){
+        }catch (NullPointerException e){
+            System.out.println("Erro no recebimento dos dados " + e.getMessage());
+        }catch (Exception e){
             System.out.println(e.getMessage());
         }
 

@@ -8,6 +8,7 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -21,6 +22,7 @@ public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
         Scanner sc = new Scanner(System.in);
         Conn conn = new Conn();
+        Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).create(); //naming standard
 
         /*try{
             Scanner sc = new Scanner(System.in);
@@ -66,17 +68,30 @@ public class Main {
 
                 System.out.println(conn.searchTitle(title));
             } else if(resp == 2){
-                System.out.println("Digite o nome do titulo que deseja guardar: ");
-                String title = sc.next();
-                conn.searchTitle(title);
-                int resp_write;
+                String title;
+                int op;
+                List<Title> document = new ArrayList<>();
                 do{
-                    System.out.println("1 - Adicionar mais um filme");
-                    System.out.println("2 - Salvar arquivo e sair");
-                    resp_write = sc.nextInt();
-                } while (resp_write != 0);
+                    System.out.println("1 - Digitar titulo ");
+                    System.out.println("0 - Salvar e sair");
+                    op = sc.nextInt();
+                    if(op == 1){
+                        System.out.println("titulo: ");
+                        title = sc.next();
+                        String json = conn.searchTitle(title);
+                        TitleOmdb myTitleOmdb = gson.fromJson(json, TitleOmdb.class);
+                        Title myTitle = new Title(myTitleOmdb);
+                        document.add(myTitle);
+                        System.out.println("Array " + document);
+                    } else {
+                        FileWriter archive = new FileWriter("filmes.json");
+                        archive.write(gson.toJson(document));
+                        archive.close();
+                        System.out.println("o arquivo foi salvo om sucesso!");
 
-                List<Title> titles = new ArrayList<>();
+                    }
+                } while (op != 0);
+                break;
             } else {
                 System.out.println("Opção inválida");
             }
