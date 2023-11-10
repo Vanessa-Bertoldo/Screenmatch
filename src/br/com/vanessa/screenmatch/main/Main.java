@@ -92,13 +92,17 @@ public class Main {
                     }
                 } while (op != 0);
                 break;
+            } else if(resp == 0){
+                System.out.println("Encerrando programa...");
+                break;
             } else {
                 System.out.println("Opção inválida");
             }
         } while (resp != 0);
-        String test = conn.searchTitle("matrix");
+        System.out.println("Programa encerrado");
+        /*String test = conn.searchTitle("matrix");
         System.out.println("teste " + test);
-        conn.writeDataToFile(test);
+        conn.writeDataToFile(test);*/
 
     }
 }
